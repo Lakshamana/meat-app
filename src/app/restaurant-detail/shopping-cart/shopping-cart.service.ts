@@ -25,9 +25,6 @@ export class ShoppingCartService {
     }
 
     removeItem(item: any) {
-        console.log("ITEMS: ", this.items)
-        console.log("ITEM: ", item)
-        console.log(`ITEM INDEX: ${this.items.indexOf(item)}`)
         this.items.splice(this.items.indexOf(item), 1)
     }
 }
