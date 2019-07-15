@@ -1,9 +1,9 @@
 <div class="form-group" [class.has-success]="hasSuccess()"
                         [class.has-error]="hasError()">
   <label class="control-label sr-only" for="inputSuccess"> {{label}}</label>
-  
+
   <ng-content></ng-content>
-  
+
   <span class="help-block" *ngIf="hasSuccess()">
     Ok
   </span>
