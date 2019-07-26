@@ -9,8 +9,8 @@
 <section class="content">
 
   <div class="row">
-      <div *ngFor="let rst of restaurants" class="col-sm-6 col-xs-12">
-        <mt-restaurant [restaurant]="rst"></mt-restaurant>
+      <div *ngFor="let rst of restaurants; index as i" class="col-sm-6 col-xs-12">
+        <mt-restaurant [restaurant]="rst" [restaurantKey]="i"></mt-restaurant>
         <!-- /.info-box -->
       </div>
       <!-- /.col -->

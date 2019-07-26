@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, AfterContentInit, ContentChild } from '@angular/core';
-import { NgModel, FormControlName } from '@angular/forms';
+import { Component, OnInit, Input, AfterContentInit, ContentChild } from '@angular/core'
+import { NgModel, FormControlName } from '@angular/forms'
 
 @Component({
   selector: 'mt-input-container',

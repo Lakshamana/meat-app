@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { trigger, style, transition, animate, state } from '@angular/animations';
-import { NotificationService } from '../notification.service';
+import { Component, OnInit } from '@angular/core'
+import { trigger, style, transition, animate, state } from '@angular/animations'
+import { NotificationService } from '../notification.service'
+import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/operator/do'
 import 'rxjs/add/operator/switchMap'
+import 'rxjs/add/observable/timer'
 
 @Component({
   selector: 'mt-snackbar',
@@ -31,9 +33,12 @@ export class SnackbarComponent implements OnInit {
   constructor(private notificationService: NotificationService) {}
 
   ngOnInit() {
-    this.notificationService.notifier.do(message => {
-      this.message = message
-      this.snackbarVisibility = 'visible'
-    })
+    this.notificationService.notifier
+      .do(message => {
+        this.message = message
+        this.snackbarVisibility = 'visible'
+      })
+      .switchMap(message => Observable.timer(3000))
+      .subscribe(timer => this.snackbarVisibility = 'hidden')
   }
 }

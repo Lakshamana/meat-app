@@ -1,10 +1,10 @@
-import { RadioOption } from 'app/shared/radio/radio-option.model';
-import { OrderService } from './order.service';
-import { CartItem } from 'app/restaurant-detail/shopping-cart/shopping-cart-item.model';
-import { Order, OrderItem } from './order.model';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { RadioOption } from 'app/shared/radio/radio-option.model'
+import { OrderService } from './order.service'
+import { CartItem } from 'app/restaurant-detail/shopping-cart/shopping-cart-item.model'
+import { Order, OrderItem } from './order.model'
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms'
+import { Router } from '@angular/router'
+import { Component, OnInit } from '@angular/core'
 
 @Component({
   selector: 'mt-order',
@@ -12,7 +12,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderComponent implements OnInit {
 
-  emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+  emailPattern = /^(([^<>()\[\]\.,:\s@\"]+(\.[^<>()\[\]\.,:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,:\s@\"]+\.)+[^<>()[\]\.,:\s@\"]{2,})$/i
   numberPattern = /^[0-9]*$/
   orderForm: FormGroup
   placeholder = 'Nome'

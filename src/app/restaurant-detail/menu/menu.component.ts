@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { RestaurantsService } from 'app/restaurants/resturant.service';
-import { Observable } from 'rxjs/Observable';
-import { MenuItem } from '../menu-item/menu-item.model';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core'
+import { RestaurantsService } from 'app/restaurants/resturant.service'
+import { Observable } from 'rxjs/Observable'
+import { MenuItem } from '../menu-item/menu-item.model'
+import { ActivatedRoute } from '@angular/router'
 
 @Component({
   selector: 'mt-menu',
