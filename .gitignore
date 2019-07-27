@@ -10,7 +10,7 @@
 
 # IDEs and editors
 /.idea
-/.vscode
+#/.vscode
 .project
 .classpath
 .c9/
@@ -35,7 +35,7 @@ testem.log
 Thumbs.db
 
 #vscode
-.vscode
+#.vscode
 
 # miscelaneous
 db.json
