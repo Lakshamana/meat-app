@@ -2,7 +2,12 @@
 <section class="content-header">
   <h1>
     Todos os Restaurantes
-    <a class="search-link pull-right" (click)="toggleSearchBar()">
+    <a class="search-link pull-right" (click)="toggleSearchBar(iptSearch)">
+      <span *ngIf="iptSearch.value">
+        <small>
+          <em>Pesquisando por "{{ iptSearch.value }}" &nbsp;</em>
+        </small>
+      </span>
       <i class="fa fa-search"></i>
     </a>
   </h1>
@@ -12,27 +17,31 @@
       <form [formGroup]="searchForm">
         <div class="form-group">
           <input
+            #iptSearch
             type="text"
             class="form-control"
             formControlName="searchControl"
             placeholder="O que você está procurando?"
-          >
+          />
         </div>
       </form>
     </div>
   </div>
 </section>
 
-
 <section class="content">
-
   <div class="row">
-      <div *ngFor="let rst of restaurants; index as i" class="col-sm-6 col-xs-12">
-        <mt-restaurant [restaurant]="rst" [restaurantKey]="i"></mt-restaurant>
-        <!-- /.info-box -->
-      </div>
-      <!-- /.col -->
+    <div *ngFor="let rst of restaurants; index as i" class="col-sm-6 col-xs-12">
+      <mt-restaurant [restaurant]="rst" [restaurantKey]="i"></mt-restaurant>
+      <!-- /.info-box -->
     </div>
+    <div *ngIf="restaurants?.length === 0" class="col-xs-12">
+      <p class="lead text-center">
+        Não foram encontrados itens para a sua busca. 
+      </p>
+    </div>
+    <!-- /.col -->
+  </div>
 </section>
 
 <!-- FIM  do CONTEÚDO -->
