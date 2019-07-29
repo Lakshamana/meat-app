@@ -10,6 +10,7 @@ import 'rxjs/add/operator/debounceTime'
 import 'rxjs/add/operator/distinctUntilChanged'
 import 'rxjs/add/observable/from'
 import { ErrorHandler } from 'app/app.error-handler'
+import { NotificationService } from 'app/shared/messages/notification.service';
 
 @Component({
   selector: 'mt-restaurants',
@@ -43,7 +44,8 @@ export class RestaurantsComponent implements OnInit {
 
   constructor(
     private restaurantService: RestaurantsService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit() {
@@ -58,7 +60,10 @@ export class RestaurantsComponent implements OnInit {
       .switchMap(searchTerm =>
         this.restaurantService
           .restaurants(searchTerm)
-          .catch(err => Observable.from([]))
+          .catch(err => {
+            this.notificationService.notify('Ocorreu um erro no servidor')
+            return Observable.from([])
+          })
       )
       .subscribe(restaurants => (this.restaurants = restaurants))
 
