@@ -1,6 +1,8 @@
 import { Request, Response } from 'express'
 import { User, users } from './users'
 import * as jwt from 'jsonwebtoken'
+import { httpStatus } from './constants'
+import { apiConfig } from './api.config';
 
 export const handleAuthentication = (req: Request, resp: Response) => {
   const user: User = req.body
@@ -11,7 +13,7 @@ export const handleAuthentication = (req: Request, resp: Response) => {
         sub: dbUser.email,
         iss: 'meat-api'
       },
-      'meat-api-password'
+      apiConfig.secret
     )
     resp.json({
       name: dbUser.name,
@@ -20,7 +22,7 @@ export const handleAuthentication = (req: Request, resp: Response) => {
     })
   } else {
     resp.status(403).json({
-      message: 'Invalid data'
+      message: httpStatus.forbidden
     })
   }
 }

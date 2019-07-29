@@ -4,6 +4,7 @@ import * as fs from 'fs'
 import * as https from 'https'
 
 import { handleAuthentication } from './auth'
+import { handleAuthorization } from './authz'
 
 const server: Application = jsonServer.create()
 const router = jsonServer.router('db.json')
@@ -18,6 +19,9 @@ server.use(jsonServer.bodyParser)
 
 // login
 server.post('/login', handleAuthentication)
+
+// authz
+server.use('/orders', handleAuthorization)
 
 // Use default router
 server.use(router)
