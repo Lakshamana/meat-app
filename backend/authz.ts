@@ -4,7 +4,6 @@ import { messages, httpStatus } from './constants'
 import { apiConfig } from './api.config'
 
 export const handleAuthorization = (req: Request, resp: Response, next) => {
-  console.log(req.headers)
   const token = getToken(req)
   if (!token) {
     resp.setHeader('WWW-Authenticate', 'Bearer token_type="JWT"')
@@ -28,7 +27,6 @@ function getToken(req: Request): string {
   let token = undefined
   if (req.headers && req.headers.authorization) {
     const parts: string[] = req.headers.authorization.split(' ')
-    console.log(JSON.stringify(parts))
     if (parts.length === 2 && parts[0] === 'Bearer') {
       token = parts[1]
     }
