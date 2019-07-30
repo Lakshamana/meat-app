@@ -23,7 +23,9 @@
         </ul>
       </div>
       <!-- /.navbar-collapse -->
-      <mt-user-detail></mt-user-detail>
+      <span *ngIf="!isLoginRoute()">
+        <mt-user-detail></mt-user-detail>
+      </span>
     </div>
   </nav>
 </header>
