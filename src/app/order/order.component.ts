@@ -23,6 +23,19 @@ export class OrderComponent implements OnInit {
     {label: 'Vale-refeição', value: 'REF'}
   ]
 
+  static equalsTo(group: AbstractControl): {[key: string]: boolean} {
+    const email = group.get('email')
+    const emailConfirmation = group.get('emailConfirmation')
+    if (!email || !emailConfirmation) {
+      return undefined
+    }
+
+    if (email.value !== emailConfirmation.value) {
+      return { emailsNotMatch: true }
+    }
+    return undefined
+  }
+
   constructor(private orderService: OrderService,
               private router: Router,
               private formBuilder: FormBuilder) { }
@@ -39,20 +52,6 @@ export class OrderComponent implements OnInit {
     }, {
       validator: OrderComponent.equalsTo
     })
-  }
-
-  static equalsTo(group: AbstractControl): {[key: string]: boolean} {
-    const email = group.get('email')
-    const emailConfirmation = group.get('emailConfirmation')
-    if (!email || !emailConfirmation) {
-      return undefined
-    }
-
-    if (email.value !== emailConfirmation.value) {
-      return { emailsNotMatch: true }
-    }
-
-    return undefined
   }
 
   cartItems(): CartItem[] {
