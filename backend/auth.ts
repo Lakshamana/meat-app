@@ -1,8 +1,8 @@
 import { Request, Response } from 'express'
 import { User, users } from './users'
 import * as jwt from 'jsonwebtoken'
-import { httpStatus } from './constants'
-import { apiConfig } from './api.config';
+import { httpStatus, messages } from './constants'
+import { apiConfig } from './api.config'
 
 export const handleAuthentication = (req: Request, resp: Response) => {
   const user: User = req.body
@@ -21,8 +21,8 @@ export const handleAuthentication = (req: Request, resp: Response) => {
       accessToken: token
     })
   } else {
-    resp.status(403).json({
-      message: httpStatus.forbidden
+    resp.status(httpStatus.forbidden).json({
+      message: messages.invalidData
     })
   }
 }

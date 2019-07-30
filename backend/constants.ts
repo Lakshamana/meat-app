@@ -1,7 +1,7 @@
 export const messages = {
-  notAuthorized: 'Not Authorized.',
-  invalidData: 'Invalid data.',
-  needsAuth: 'You need to get authenticated.'
+  notAuthorized: 'Não autorizado.',
+  invalidData: 'Dados inválidos.',
+  needsAuth: 'Você precisa se autenticar.'
 }
 
 export const httpStatus = {
