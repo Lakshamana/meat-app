@@ -7,8 +7,6 @@ import { LoginService } from 'app/security/login/login.service'
   styleUrls: ['./user-detail.component.css']
 })
 export class UserDetailComponent implements OnInit {
-  label = 'Entrar'
-
   constructor(private loginService: LoginService) {}
 
   ngOnInit() {}
@@ -26,6 +24,6 @@ export class UserDetailComponent implements OnInit {
   }
 
   logout() {
-    this.loginService.logout()
+    this.loginService.handleLogout()
   }
 }
