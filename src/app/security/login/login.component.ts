@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { LoginService } from './login.service'
 import { NotificationService } from 'app/shared/messages/notification.service'
+import { ActivatedRoute, Router } from '@angular/router'
 
 @Component({
   selector: 'mt-login',
@@ -10,11 +11,14 @@ import { NotificationService } from 'app/shared/messages/notification.service'
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup
+  navigateTo: string
 
   constructor(
     private fb: FormBuilder,
     private loginService: LoginService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -22,6 +26,7 @@ export class LoginComponent implements OnInit {
       email: this.fb.control('', [Validators.required, Validators.email]),
       password: this.fb.control('', [Validators.required])
     })
+    this.navigateTo = this.route.snapshot.params['to'] || '/'
   }
 
   login() {
@@ -29,7 +34,8 @@ export class LoginComponent implements OnInit {
       .login(this.loginForm.value.email, this.loginForm.value.password)
       .subscribe(
         user => this.notificationService.notify(`Bem vindo(a), ${user.name}`),
-        err => this.notificationService.notify(err.error.message)
+        err => this.notificationService.notify(err.error.message),
+        () => this.router.navigate([this.navigateTo])
       )
   }
 }
