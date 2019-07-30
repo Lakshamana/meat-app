@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
+import { LoginService } from 'app/security/login/login.service'
 
 @Component({
   selector: 'mt-user-detail',
@@ -6,10 +7,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-detail.component.css']
 })
 export class UserDetailComponent implements OnInit {
+  label = 'Entrar'
 
-  constructor() { }
+  constructor(private loginService: LoginService) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  user() {
+    return this.loginService.user
   }
 
+  loggedIn(): boolean {
+    return this.loginService.isLoggedIn()
+  }
+
+  login() {
+    this.loginService.handleLogin()
+  }
+
+  logout() {
+    this.loginService.logout()
+  }
 }
