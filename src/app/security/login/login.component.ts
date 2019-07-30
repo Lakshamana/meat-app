@@ -6,8 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 
 @Component({
   selector: 'mt-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  templateUrl: './login.component.html'
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup
@@ -26,7 +25,8 @@ export class LoginComponent implements OnInit {
       email: this.fb.control('', [Validators.required, Validators.email]),
       password: this.fb.control('', [Validators.required])
     })
-    this.navigateTo = this.route.snapshot.params['to'] || '/'
+    this.navigateTo = this.route.snapshot.params['to'] || btoa('/')
+    console.log(this.navigateTo)
   }
 
   login() {
@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         user => this.notificationService.notify(`Bem vindo(a), ${user.name}`),
         err => this.notificationService.notify(err.error.message),
-        () => this.router.navigate([this.navigateTo])
+        () => this.router.navigate([atob(this.navigateTo)])
       )
   }
 }
