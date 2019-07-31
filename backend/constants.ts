@@ -10,4 +10,3 @@ export const httpStatus = {
   notFound: 404,
   ok: 200,
 }
-

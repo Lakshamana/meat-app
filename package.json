@@ -5,7 +5,7 @@
   "angular-cli": {},
   "scripts": {
     "ng": "ng",
-    "start": "nodemon --watch backend backend/dist/server.js & ng serve",
+    "start": "npm run serve & ng serve",
     "serve": "nodemon --watch backend backend/dist/server.js",
     "lint": "tslint \"src/**/*.ts\" --project src/tsconfig.json --type-check && tslint \"e2e/**/*.ts\" --project e2e/tsconfig.json --type-check",
     "test": "ng test",

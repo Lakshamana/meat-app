@@ -1,16 +1,19 @@
 import { HttpErrorResponse } from '@angular/common/http'
-import { Observable } from 'rxjs/Observable'
+import { ErrorHandler, Injectable } from '@angular/core'
+import { NotificationService } from './shared/messages/notification.service'
 
-export class ErrorHandler {
-  static handleError(error: HttpErrorResponse | any) {
-    let errorMessage: string
-    if (error instanceof HttpErrorResponse) {
-      const body = error.error
-      errorMessage = `Erro ${error.status} (${error.statusText ||
-        ''}) ao acessar a URL ${error.url}: ${body}`
-    } else {
-      errorMessage = error.message ? error.message : error.toString()
+@Injectable()
+export class ApplicationErrorHandler extends ErrorHandler {
+  constructor(private ns: NotificationService) {
+    super()
+  }
+
+  handleError(errorResponse: HttpErrorResponse | any) {
+    if (errorResponse instanceof HttpErrorResponse) {
+      switch (errorResponse.status) {
+
+      }
     }
-    return Observable.throw(errorMessage)
+    super.handleError(errorResponse)
   }
 }
