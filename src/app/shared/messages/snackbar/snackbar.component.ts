@@ -27,8 +27,8 @@ import 'rxjs/add/observable/timer'
 })
 export class SnackbarComponent implements OnInit {
 
-  message: string = ''
-  snackbarVisibility: string = 'hidden'
+  message = ''
+  snackbarVisibility = 'hidden'
 
   constructor(private notificationService: NotificationService) {}
 
