@@ -5,11 +5,13 @@ import { FormBuilder, FormGroup, FormControl } from '@angular/forms'
 import { Restaurant } from './restaurant/restaurant.model'
 import { RestaurantsService } from './resturant.service'
 
-import { Observable } from 'rxjs/Observable'
-import 'rxjs/add/operator/debounceTime'
-import 'rxjs/add/operator/distinctUntilChanged'
-import 'rxjs/add/observable/from'
-import { NotificationService } from 'app/shared/messages/notification.service'
+import { from } from 'rxjs'
+import {
+  debounceTime,
+  distinctUntilChanged,
+  switchMap,
+  catchError
+} from 'rxjs/operators'
 
 @Component({
   selector: 'mt-restaurants',
@@ -43,8 +45,7 @@ export class RestaurantsComponent implements OnInit {
 
   constructor(
     private restaurantService: RestaurantsService,
-    private fb: FormBuilder,
-    private notificationService: NotificationService
+    private fb: FormBuilder
   ) {}
 
   ngOnInit() {
@@ -54,12 +55,14 @@ export class RestaurantsComponent implements OnInit {
     })
 
     this.searchControl.valueChanges
-      .debounceTime(500)
-      .distinctUntilChanged()
-      .switchMap(searchTerm =>
-        this.restaurantService
-          .restaurants(searchTerm)
-          .catch(err => Observable.from([]))
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        switchMap(searchTerm =>
+          this.restaurantService
+            .restaurants(searchTerm)
+            .pipe(catchError(err => from([])))
+        )
       )
       .subscribe(restaurants => (this.restaurants = restaurants))
 

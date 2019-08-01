@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { trigger, style, transition, animate, state } from '@angular/animations'
 import { NotificationService } from '../notification.service'
-import { Observable } from 'rxjs/Observable'
-import 'rxjs/add/operator/do'
-import 'rxjs/add/operator/switchMap'
-import 'rxjs/add/observable/timer'
+import { Observable, timer } from 'rxjs'
+import { tap, switchMap } from 'rxjs/operators'
 
 @Component({
   selector: 'mt-snackbar',
@@ -12,21 +10,26 @@ import 'rxjs/add/observable/timer'
   styleUrls: ['./snackbar.component.css'],
   animations: [
     trigger('snackbar-visibility', [
-      state('hidden', style({
-        opacity: 0,
-        bottom: '0px'
-      })),
-      state('visible', style({
-        opacity: 1,
-        bottom: '30px'
-      })),
+      state(
+        'hidden',
+        style({
+          opacity: 0,
+          bottom: '0px'
+        })
+      ),
+      state(
+        'visible',
+        style({
+          opacity: 1,
+          bottom: '30px'
+        })
+      ),
       transition('hidden => visible', animate('500ms 0s ease-in')),
       transition('visible => hidden', animate('500ms 0s ease-out'))
     ])
   ]
 })
 export class SnackbarComponent implements OnInit {
-
   message = ''
   snackbarVisibility = 'hidden'
 
@@ -34,11 +37,13 @@ export class SnackbarComponent implements OnInit {
 
   ngOnInit() {
     this.notificationService.notifier
-      .do(message => {
-        this.message = message
-        this.snackbarVisibility = 'visible'
-      })
-      .switchMap(message => Observable.timer(3000))
-      .subscribe(timer => this.snackbarVisibility = 'hidden')
+      .pipe(
+        tap(message => {
+          this.message = message
+          this.snackbarVisibility = 'visible'
+        }),
+        switchMap(message => timer(3000))
+      )
+      .subscribe(timer => (this.snackbarVisibility = 'hidden'))
   }
 }

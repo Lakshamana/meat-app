@@ -5,17 +5,15 @@ import { ShoppingCartService } from 'app/restaurant-detail/shopping-cart/shoppin
 import { CartItem } from 'app/restaurant-detail/shopping-cart/shopping-cart-item.model'
 import { Order } from './order.model'
 import { MEAT_API } from 'app/app.api'
-import { LoginService } from 'app/security/login/login.service'
 
-import { Observable } from 'rxjs/Observable'
-import 'rxjs/add/operator/map'
+import { Observable } from 'rxjs'
+import { map } from 'rxjs/operators'
 
 @Injectable()
 export class OrderService {
   constructor(
     private shoppingCartService: ShoppingCartService,
-    private http: HttpClient,
-    private loginService: LoginService
+    private http: HttpClient
   ) {}
 
   cartItems(): CartItem[] {
@@ -45,6 +43,6 @@ export class OrderService {
   checkOrder(order: Order): Observable<string> {
     return this.http
       .post<Order>(`${MEAT_API}/orders`, order)
-      .map(order => order.id)
+      .pipe(map(order => order.id))
   }
 }
