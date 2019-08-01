@@ -3,6 +3,9 @@ import { NgModule, LOCALE_ID, ErrorHandler } from '@angular/core'
 import { HttpClientModule } from '@angular/common/http'
 import { RouterModule, PreloadAllModules } from '@angular/router'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { registerLocaleData } from '@angular/common'
+import ptbr from '@angular/common/locales/pt'
+registerLocaleData(ptbr)
 
 import { AppComponent } from './app.component'
 import { HeaderComponent } from './header/header.component'
