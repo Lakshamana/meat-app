@@ -51,10 +51,10 @@ export class OrderComponent implements OnInit {
   ngOnInit() {
     this.orderForm = new FormGroup(
       {
-        name: new FormControl('', {
-          validators: [Validators.required, Validators.minLength(5)],
-          updateOn: 'blur'
-        }),
+        name: this.formBuilder.control('', [
+          Validators.required,
+          Validators.minLength(5)
+        ]),
         email: this.formBuilder.control('', [
           Validators.required,
           Validators.pattern(this.emailPattern)
@@ -72,7 +72,10 @@ export class OrderComponent implements OnInit {
           Validators.pattern(this.numberPattern)
         ]),
         optionalAddress: this.formBuilder.control(''),
-        paymentOption: this.formBuilder.control('', [Validators.required])
+        paymentOption: new FormControl('', {
+          validators: [Validators.required],
+          updateOn: 'change'
+        })
       },
       {
         validators: [OrderComponent.equalsTo],
